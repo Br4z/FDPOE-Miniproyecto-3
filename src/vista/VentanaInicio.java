@@ -15,7 +15,10 @@
 
 package vista;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *  CLASE:     VentanaInicio
@@ -23,10 +26,19 @@ import javax.swing.*;
  *  RELACION:  NINGUNA 
  */
 
-public class VentanaInicio extends JFrame {    
+public class VentanaInicio extends JFrame {
+    DefaultTableModel tableModel = new DefaultTableModel();
+    private JTable dataTable  = new JTable();
+    private JButton btnLoad   = new JButton("Cargar");
+    private JButton btnExport = new JButton("Exportar");;
+    private JButton btnSearch = new JButton("Buscar");;
+    private JButton btnAdd    = new JButton("Agregar");;    
+    private JButton btnUpdate = new JButton("Actualizar");;
+    private JButton btnDelete = new JButton("Eliminar");;
+            
     public VentanaInicio() {
         initializeComponents();        
-        setSize(300, 300);
+        setSize(600, 800);
         setTitle("Directorio telefonico - Inicio");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -35,6 +47,34 @@ public class VentanaInicio extends JFrame {
     }
 
     private void initializeComponents() {
+        
+        setLayout(null); // Desactivamos la distribución por defecto
+        
+        
+        String[] titles = {"Numbero", "Nombre", "Direccion", "Telefono", "Fecha"};
+        tableModel.setColumnIdentifiers(titles);
+        dataTable.setModel(tableModel);
+        
+
+        dataTable.setBounds(100, 0, 300, 300);
+        btnAdd.setBounds(100, 300, 300, 300);
+        add(btnAdd);
+        add(dataTable);
+        
+        btnAdd.addActionListener(new actionListener());
+    }
+    
+    private class actionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton pressButton = (JButton) e.getSource();
+            
+            if(pressButton == btnAdd) {
+                tableModel.addRow(new Object[] {
+                    "Numbero", "Nombre", "Direccion", "Telefono", "Fecha"   
+                });
+            }
+        }
         
     }
 }
