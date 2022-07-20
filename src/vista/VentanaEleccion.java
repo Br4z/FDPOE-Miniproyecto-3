@@ -15,12 +15,8 @@
 
 package vista;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -29,18 +25,14 @@ import javax.swing.*;
  *  RELACION:  NINGUNA 
  */
 
-public class VentanaEleccion extends JFrame {    
-    
-    private JLabel lblTitulo;
-    
+public class VentanaEleccion extends JFrame {        
+    private JLabel lblTitulo;   
     private JPanel pnlBotones;
-    private JPanel pnlBotones2;
-    
+    private JPanel pnlBotones2;    
     private JButton btnUpdate;
     private JButton btnDelete;
     private JButton btnAppend;
-    private JButton btnList;
-    
+    private JButton btnList;    
     private Container ContenedorInfo;
     
     public VentanaEleccion() {
@@ -53,8 +45,7 @@ public class VentanaEleccion extends JFrame {
         setResizable(false);        
     }
 
-    private void initializeComponents() {
-        
+    private void initializeComponents() {        
         lblTitulo = new JLabel("Miembros Univalle");
         lblTitulo.setBounds(100, 50, 200, 80);
         lblTitulo.setFont(new Font("Serif", Font.ROMAN_BASELINE, 25));
@@ -69,20 +60,20 @@ public class VentanaEleccion extends JFrame {
         
         btnAppend = new JButton("Añadir");
         btnAppend.setBackground(Color.LIGHT_GRAY);
-        btnAppend.addActionListener(new NextFrame());
-        
+                
         btnUpdate = new JButton("Actualizar");
         btnUpdate.setBackground(Color.LIGHT_GRAY);
-        btnUpdate.addActionListener(new NextFrame());
-        
-        
+                      
         btnDelete = new JButton("Elminar");
         btnDelete.setBackground(Color.LIGHT_GRAY);
-        btnDelete.addActionListener(new NextFrame());
-        
+
         btnList = new JButton("Listar");
         btnList.setBackground(Color.LIGHT_GRAY);
-        btnList.addActionListener(new NextFrame());
+        
+        btnAppend.addActionListener(new actionListener());
+        btnUpdate.addActionListener(new actionListener());
+        btnDelete.addActionListener(new actionListener());
+        btnList.addActionListener(new actionListener());
         
         pnlBotones.add(btnAppend);
         pnlBotones.add(btnUpdate);
@@ -95,37 +86,24 @@ public class VentanaEleccion extends JFrame {
         ContenedorInfo.add(pnlBotones);
         ContenedorInfo.add(pnlBotones2);
         ContenedorInfo.add(lblTitulo);
-        ContenedorInfo.setBackground(Color.white);
-        
-        
-        
+        ContenedorInfo.setBackground(Color.white);                      
     }
-    private void openNextFrame(ActionEvent btn)
-    {
-        if (btn.getSource()==btnAppend) {
-            dispose();
-            VentanaAgregar ventanaAgregar = new VentanaAgregar();
-        } else if (btn.getSource()==btnUpdate) {
-            dispose();
-            
-        } else  if (btn.getSource()==btnList) {
-            dispose();
-            
-        } else if (btn.getSource()==btnDelete) {
-            dispose();
-            
-        }
-
-    }
-    
-    class NextFrame implements ActionListener
-    {
-
+   
+    private class actionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            openNextFrame(e);
-        }
-        
+            JButton pressedButton = (JButton) e.getSource();
+            
+            if(pressedButton == btnAppend) {
+                dispose();
+                VentanaAgregar ventanaAgregar = new VentanaAgregar();               
+            } else if(pressedButton == btnUpdate) {
+                dispose();
+            } else if(pressedButton == btnList) {
+                dispose();
+            } else { // Caso del btnDelete
+                dispose();
+            }           
+        }       
     }
-
 }
