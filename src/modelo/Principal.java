@@ -6,7 +6,7 @@ package modelo;
 import javax.swing.JFrame;
 import vista.VentanaActualizar.*;
 import vista.VentanaAgregar;
-import vista.VentanaEleccion;
+import vista.VentanaInicio;
 
 /**
  *

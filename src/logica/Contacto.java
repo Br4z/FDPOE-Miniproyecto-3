@@ -14,6 +14,7 @@
 
 package logica;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -25,24 +26,22 @@ import java.util.Calendar;
 public class Contacto {
     private int position; // Esta va a ser una de nuestras variables de control
     private static int nextPosition = 1;
-    private int type; // 1 - Estudiante 2 - Empleado 3 - Profesor
-    private String names;
+    private String role; // Estudiante/Empleado/Profesor
+    private String name;
     private String lastName;
     private Calendar birth; // Podria ser final, pero se pueden equivocar en su digitacion
-    private String[] direction = new String[2]; // El primer elemento va a ser la direccion en si, y
-    // el segundo el lugar asociado
-    private int[] telephone = new int[2]; // El primer elemento va a ser el numero en si, y
-    // el segundo el lugar asociado
+    private Direccion direction;
+    private ArrayList<Telefono> telephones;
 
-    public Contacto(int type, String names, String lastName, Calendar birth, String[] direction, int[] telephone) {
+    public Contacto(String role, String name, String lastName, Calendar birth, Direccion direction, ArrayList<Telefono> telephones) {
         position = nextPosition;
         nextPosition++;
-        this.type = type;
-        this.names = names;
+        this.role = role;
+        this.name = name;
         this.lastName = lastName;
         this.birth = birth;
         this.direction = direction;
-        this.telephone = telephone;
+        this.telephones = telephones;
     }
     
 }

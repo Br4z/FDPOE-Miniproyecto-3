@@ -25,7 +25,7 @@ import vista.*;
 
 public class directorioTelefonico {
     public static void main(String[] args) {
-        VentanaEleccion ventanaInicio = new VentanaEleccion();
+        VentanaInicio ventanaInicio = new VentanaInicio();
         //VentanaAgregar ventanaAgregar = new VentanaAgregar();
     } 
 }
