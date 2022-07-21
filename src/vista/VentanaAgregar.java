@@ -17,7 +17,10 @@ package vista;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
+
+import logica.*;
 
 /**
  *  CLASE:     VentanaAgregar
@@ -26,7 +29,7 @@ import javax.swing.*;
  */
 
 public class VentanaAgregar extends JFrame {
-    private Color orange = new Color(254, 177, 57);
+    private Color orange            = new Color(254, 177, 57);
     private JPanel pnl1             = new JPanel(new GridLayout(6, 2, 20, 5));  // Va a contener 
     // todos los campos, excepto los telefonos   
     private JLabel lblID            = new JLabel("Identificacion:");
@@ -39,17 +42,18 @@ public class VentanaAgregar extends JFrame {
     private JTextField txtID        = new JTextField();
     private JTextField txtName      = new JTextField();
     private JTextField txtLastName  = new JTextField();
-    private JTextField txtAddress   = new JTextField();
     private JComboBox boxID         = new JComboBox();
     private JComboBox boxRole       = new JComboBox();
     private JTextField txtBirth     = new JTextField();
     
-    private JTextField[] txtAddressFields = new JTextField[10];
-    private int CountAdress = 1; // Empezamos con una direccion y minimamente debe tener uno
-    private int height = 210; // Para llevar control de la creacion de los recuadros
+    private int height = 210; // Altura a la que empezamos a agregar cosas despues del panel
+    private JTextField[] txtAddresses = new JTextField[5];
+    private int countAdress = 1; // Empezamos con una direccion y minimamente debe tener uno
+    private int adressHeight = 35;
     
     private JTextField[] txtPhones = new JTextField[5];
     private JComboBox[] boxPhones  = new JComboBox[5];
+    private int phoneHeight = 0; // Para llevar control de la creacion de los recuadros
     private int countPhone = 1; // Empezamos con un telefono y minimamente debe tener uno
        
     private JButton btnNewAddress = new JButton("+");
@@ -62,7 +66,7 @@ public class VentanaAgregar extends JFrame {
     public VentanaAgregar() {
     initializeComponents();        
         setSize(510, 500);
-        setTitle("Directorio telefonico - Añadir Contacto");
+        setTitle("Directorio telefonico - Agregar Contacto");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null); // Posición de la ventana en el centro
@@ -81,12 +85,14 @@ public class VentanaAgregar extends JFrame {
         boxID.addItem("T.I");
         boxID.addItem("C.C");
         boxID.setBackground(orange);
-           
+        
+        txtAddresses[0] = new JTextField();
+        
         btnNewAddress.setBackground(orange);
-        btnNewAddress.setBounds(530, 220, 30, 30);
+        btnNewAddress.setBounds(460, 200 - 25, 30, 30); // 25 = 30 / 2 + 5
              
         btnNewPhones.setBackground(orange);
-        btnNewPhones.setBounds(460, height, 30, 30);
+        btnNewPhones.setBounds(460, phoneHeight + height, 30, 30);
         
         btnAdd.setBounds(50, 400, 100, 50);
         btnBack.setBounds(350, 400, 100, 50);
@@ -94,7 +100,7 @@ public class VentanaAgregar extends JFrame {
         btnAdd.addActionListener(new actionListener());
         btnBack.addActionListener(new actionListener());
         btnNewAddress.addActionListener(new actionListener());
-        btnNewPhones.addActionListener(new actionListener());
+        btnNewPhones.addActionListener(new actionListener());       
         
         JPanel pnlID = new JPanel(new GridLayout(1, 2, 10, 5));
         pnlID.setBackground(null);
@@ -112,18 +118,18 @@ public class VentanaAgregar extends JFrame {
         pnl1.add(lblRole);
         pnl1.add(boxRole);      
         pnl1.add(lblAddress);
-        pnl1.add(txtAddress);
+        pnl1.add(txtAddresses[0]);
         
-        lblPhone.setBounds(10, height, 150, 31);
-        txtPhones[countPhone] = new JTextField(" ");
-        txtPhones[countPhone].setBounds(310, height, 150, 31);
-        boxPhones[countPhone] = new JComboBox();
-        boxPhones[countPhone].setBounds(245, height, 65, 31);
-        boxPhones[countPhone].setBackground(orange);
-        boxPhones[countPhone].addItem("Movil");
-        boxPhones[countPhone].addItem("Casa");
-        boxPhones[countPhone].addItem("Trabajo");
-        boxPhones[countPhone].addItem("Oficina");
+        lblPhone.setBounds(10, phoneHeight + height, 150, 31);
+        txtPhones[0] = new JTextField(); // - 1 para la posicion 0
+        txtPhones[0].setBounds(310, phoneHeight + height, 150, 31);
+        boxPhones[0] = new JComboBox();
+        boxPhones[0].setBounds(245, phoneHeight + height, 65, 31);
+        boxPhones[0].setBackground(orange);
+        boxPhones[0].addItem("Movil");
+        boxPhones[0].addItem("Casa");
+        boxPhones[0].addItem("Trabajo");
+        boxPhones[0].addItem("Oficina");           
                        
         ContenedorInfo = getContentPane();
         ContenedorInfo.setLayout(null);
@@ -134,51 +140,52 @@ public class VentanaAgregar extends JFrame {
         ContenedorInfo.add(btnNewAddress);
         ContenedorInfo.add(btnNewPhones);
         ContenedorInfo.add(lblPhone);
-        ContenedorInfo.add(txtPhones[countPhone]);
-        ContenedorInfo.add(boxPhones[countPhone]);
+        ContenedorInfo.add(txtPhones[0]);
+        ContenedorInfo.add(boxPhones[0]);
        
         SwingUtilities.updateComponentTreeUI(ContenedorInfo);
     }
     
     private void createAddressField() {
-        if (CountAdress<=3) { 
-            System.out.println("" + CountAdress);
-            txtAddressFields[CountAdress] = new JTextField(" ");
-            txtAddressFields[CountAdress].setBounds(300, height, 215, 31);
-            height += 35;
-            ContenedorInfo.add(txtAddressFields[CountAdress]);
-            CountAdress += 1;          
+        if (countAdress<=4) { // Maximo van a ser 5 direcciones por contacto
+            System.out.println("" + countAdress);
+            txtAddresses[countAdress] = new JTextField();
+            txtAddresses[countAdress].setBounds(245, height + adressHeight, 180, 31);
+            
+            adressHeight += 35;
+            ContenedorInfo.add(txtAddresses[countAdress]);
+            countAdress += 1;          
         }   
     }
     
     private void movePhones() {
-        lblPhone.setBounds(10, (height + 37), 150, 31);
-        btnNewPhones.setBounds(460, (37 + height), 30, 30);
+        lblPhone.setBounds(10, (height  + adressHeight + 35), 150, 31);
+        btnNewPhones.setBounds(460, (height + adressHeight + phoneHeight + 35), 30, 30);
         
         for(int i = 0; i < countPhone; i++) {
             System.out.println("" + countPhone);
             System.out.println("" + i);
-            boxPhones[countPhone].setBounds(300, (height + (37 * (i + 1))), 65, 31);
-            txtPhones[countPhone].setBounds(365, (height+(37 * (i + 1))), 150, 31);
+            boxPhones[countPhone].setBounds(300, (phoneHeight + (37 * (i + 1))), 65, 31);
+            txtPhones[countPhone].setBounds(365, (phoneHeight + (37 * (i + 1))), 150, 31);
         }       
     }
     
     private void createPhoneField() {        
         if (countPhone <= 4) { // Maximo van a ser 5 telefonos por contacto
             System.out.println(countPhone);
+            phoneHeight += 35;
             // Usamos el propio contador como posicion a agregar
             txtPhones[countPhone] = new JTextField(" ");
-            txtPhones[countPhone].setBounds(310, (height + 37), 150, 31);
+            txtPhones[countPhone].setBounds(310, (phoneHeight + height), 150, 31);
             boxPhones[countPhone] = new JComboBox();
-            boxPhones[countPhone].setBounds(245, (height + 37), 65, 31);
+            boxPhones[countPhone].setBounds(245, (phoneHeight + height), 65, 31);
             boxPhones[countPhone].setBackground(new Color(254, 177, 57));
             boxPhones[countPhone].addItem("Movil");
             boxPhones[countPhone].addItem("Casa");
             boxPhones[countPhone].addItem("Trabajo");
             boxPhones[countPhone].addItem("Oficina");
-            btnNewPhones.setBounds(460, (37 + height), 30, 30);
+            btnNewPhones.setBounds(460, (height + phoneHeight), 30, 30);
             
-            height += 35;
             ContenedorInfo.add(txtPhones[countPhone]); // Campos de texto
             ContenedorInfo.add(boxPhones[countPhone]); // Campos de seleccion
             countPhone += 1;                       
@@ -191,12 +198,13 @@ public class VentanaAgregar extends JFrame {
             JButton pressedButton = (JButton) e.getSource();
             
             if (pressedButton == btnNewAddress) {
-                movePhones(); // Al agregar un boton de direccion tenemos que desplazar los de abajo
                 createAddressField();
+                movePhones(); // Al agregar un boton de direccion tenemos que desplazar los de abajo              
             } else if (pressedButton == btnNewPhones) {
                 createPhoneField();
             } else if(pressedButton == btnAdd) { // Hacemos todas las validaciones
                 boolean correctInput = true; // a priori decimos que es correcta
+                ArrayList<Telefono> telephones = new ArrayList<>();
                 String name = txtName.getText();
                 String lastName = txtLastName.getText();
                 String ID = txtID.getText();
@@ -217,7 +225,23 @@ public class VentanaAgregar extends JFrame {
                 }
                 
                 for(int i = 0; i < txtPhones.length; i++) {
-                    
+                    String stringNumber = txtPhones[0].getText();
+                    if(stringNumber.length() == 10) { // Si no esta vacio, lo validamos
+                        try { // Vamos a comprobar que solo sean numeros convirtiendolo en "int"
+                            int number = Integer.parseInt(stringNumber);
+                            // Si no lo capturo el catch, lo agregamos
+                            String place = boxPhones[i].getSelectedItem().toString();
+                            telephones.add(new Telefono(number, place));
+                            
+                        } catch(NumberFormatException exception) {
+                            correctInput = false;
+                            JOptionPane.showMessageDialog(null, "No ha ingresado un numero o ha dejado"
+                                    + " espacios en blanco");
+                            break; // Si algun txtPhone esta mal escrito terminamos el for con el boolean en falso
+                        }
+                        
+                        
+                    }
                 }
                 // Si cumplio con todas las verificaciones se agrega a los contactos
                 if(correctInput) {

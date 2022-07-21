@@ -30,17 +30,17 @@ public class Contacto {
     private String name;
     private String lastName;
     private Calendar birth; // Podria ser final, pero se pueden equivocar en su digitacion
-    private Direccion direction;
+    private ArrayList<String> directions;
     private ArrayList<Telefono> telephones;
 
-    public Contacto(String role, String name, String lastName, Calendar birth, Direccion direction, ArrayList<Telefono> telephones) {
+    public Contacto(String role, String name, String lastName, Calendar birth, ArrayList<String> directions, ArrayList<Telefono> telephones) {
         position = nextPosition;
         nextPosition++;
         this.role = role;
         this.name = name;
         this.lastName = lastName;
         this.birth = birth;
-        this.direction = direction;
+        this.directions = directions;
         this.telephones = telephones;
     }
     
