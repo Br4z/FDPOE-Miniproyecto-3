@@ -1,0 +1,1 @@
+Posicion:1;ID:C.C,1110282760;Rol:Estudiante;Nombres:Brandon;Apellidos:Calderon Prieto;Nacimiento:26/12/2003;Telefonos:3015088603,Movil,3015088603,Movil,3015088603,Movil,3015088603,Movil,3015088603,Movil;Direcciones:fdasfsa,fasdfdsa,fasdfdsa,fasdfdsa,fasdfdsa

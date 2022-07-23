@@ -21,10 +21,10 @@ package logica;
  */
 
 public class Telefono {
-    private int number;
+    private long number;
     private String place;
     
-    public Telefono(int number, String place) {
+    public Telefono(long number, String place) {
         this.number = number;
         this.place = place; // Las opciones del lugar las proponemos nostros
     }

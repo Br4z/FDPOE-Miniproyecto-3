@@ -4,9 +4,8 @@
  */
 package modelo;
 import javax.swing.JFrame;
-import vista.VentanaActualizar.*;
-import vista.VentanaAgregar;
-import vista.VentanaInicio;
+import vista.VentanaManipularContactos;
+
 
 /**
  *
@@ -14,7 +13,7 @@ import vista.VentanaInicio;
  */
 public class Principal {
     public static void main(String[] args) {
-        VentanaAgregar ventana = new VentanaAgregar();
+        VentanaManipularContactos ventana = new VentanaManipularContactos();
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
     }
 }

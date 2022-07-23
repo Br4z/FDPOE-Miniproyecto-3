@@ -15,9 +15,13 @@
 
 package vista;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import logica.*;
 
 /**
  *  CLASE:     VentanaInicio
@@ -25,19 +29,22 @@ import javax.swing.*;
  *  RELACION:  NINGUNA 
  */
 
-public class VentanaInicio extends JFrame {        
-    private JLabel lblTitulo;   
-    private JPanel pnlBotones;
-    private JPanel pnlBotones2;    
-    private JButton btnUpdate;
-    private JButton btnDelete;
-    private JButton btnAppend;
-    private JButton btnList;    
-    private Container ContenedorInfo;
-    
+public class VentanaInicio extends JFrame {
+    private Utilities utilities          = new Utilities();
+    private DefaultTableModel tableModel = new DefaultTableModel();
+    private JScrollPane jScrollPane;
+    private JTable dataTable             = new JTable();
+    private JButton btnLoad              = new JButton("Cargar");
+    private JButton btnExport            = new JButton("Exportar");;
+    private JButton btnSearch            = new JButton("Buscar");;
+    private JButton btnAdd               = new JButton("Agregar");;    
+    private JButton btnUpdate            = new JButton("Actualizar");;
+    private JButton btnDelete            = new JButton("Eliminar");;
+            
     public VentanaInicio() {
-        initializeComponents();        
-        setSize(400, 400);
+        initializeComponents();
+        listContactos();
+        setSize(600, 550);
         setTitle("Directorio telefonico - Inicio");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -45,68 +52,54 @@ public class VentanaInicio extends JFrame {
         setResizable(false);        
     }
 
-    private void initializeComponents() {        
-        lblTitulo = new JLabel("Miembros Univalle");
-        lblTitulo.setBounds(100, 50, 200, 80);
-        lblTitulo.setFont(new Font("Serif", Font.ROMAN_BASELINE, 25));
+    private void initializeComponents() {
         
-        pnlBotones = new JPanel(new GridLayout(1, 2, 20, 20));
-        pnlBotones.setBounds(70, 150, 250, 50);
-        pnlBotones.setBackground(Color.white);
+        setLayout(null); // Desactivamos la distribución por defecto             
+        String[] titles = {"Posicion", "ID", "Nombre", "Apellido", "Rol", "Telefono", "Nacimiento"};
+        tableModel.setColumnIdentifiers(titles);
+        dataTable.setModel(tableModel);
         
-        pnlBotones2 = new JPanel(new GridLayout(1, 2, 20, 20));
-        pnlBotones2.setBounds(70, 220, 250, 50);
-        pnlBotones2.setBackground(Color.white);
+        jScrollPane = new JScrollPane(dataTable);
+        jScrollPane.setBounds(10, 50, 560, 300);
         
-        btnAppend = new JButton("Añadir");
-        btnAppend.setBackground(Color.LIGHT_GRAY);
-                
-        btnUpdate = new JButton("Actualizar");
-        btnUpdate.setBackground(Color.LIGHT_GRAY);
-                      
-        btnDelete = new JButton("Elminar");
-        btnDelete.setBackground(Color.LIGHT_GRAY);
-
-        btnList = new JButton("Listar");
-        btnList.setBackground(Color.LIGHT_GRAY);
+        btnAdd.setBounds(100, 300, 300, 300);
+        add(jScrollPane);
+        add(btnAdd);
         
-        btnAppend.addActionListener(new actionListener());
-        btnUpdate.addActionListener(new actionListener());
-        btnDelete.addActionListener(new actionListener());
-        btnList.addActionListener(new actionListener());
-        
-        pnlBotones.add(btnAppend);
-        pnlBotones.add(btnUpdate);
-        pnlBotones2.add(btnDelete);
-        pnlBotones2.add(btnList);
-        
-        ContenedorInfo = getContentPane();
-        ContenedorInfo.setLayout(null);
-        
-        ContenedorInfo.add(pnlBotones);
-        ContenedorInfo.add(pnlBotones2);
-        ContenedorInfo.add(lblTitulo);
-        ContenedorInfo.setBackground(Color.white);                      
+        btnAdd.addActionListener(new actionListener());
     }
-   
+    
+    private void listContactos() {
+        ArrayList<Contacto> contactos = utilities.getContactos();
+        
+        for(Contacto contacto:contactos) {
+            int position = contacto.getPosition();
+            String ID = contacto.getID()[0] + " " + contacto.getID()[1];
+            String name = contacto.getName();
+            String lastName = contacto.getLastName();
+            String role = contacto.getRole();
+            String telephone = contacto.getTelephones().get(0).getTelefono()[0] + " " + contacto.getTelephones().get(0).getTelefono()[1];
+            // Mostramos el primer telefono agregado
+            String birth = contacto.getBirth();
+            
+            tableModel.addRow(new Object[] {
+            position, ID, name, lastName, role, telephone, birth 
+            });
+        }
+        
+
+    }
+    
     private class actionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JButton pressedButton = (JButton) e.getSource();
+            JButton pressButton = (JButton) e.getSource();
             
-            if(pressedButton == btnAppend) {
+            if(pressButton == btnAdd) {
                 dispose();
-                VentanaAgregar ventanaAgregar = new VentanaAgregar();               
-            } else if(pressedButton == btnUpdate) {
-                dispose();
-                VentanaActualizar ventanaActualizar = new VentanaActualizar(); 
-            } else if(pressedButton == btnList) {
-                dispose();
-                VentanaListar ventanaListar = new VentanaListar();
-            } else { // Caso del btnDelete
-                dispose();
-                VentanaEliminar ventanaEliminar = new VentanaEliminar();
-            }           
-        }       
+                VentanaManipularContactos ventanaAgregar = new VentanaManipularContactos();
+            }
+        }
+        
     }
 }
