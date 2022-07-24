@@ -138,7 +138,8 @@ public class Utilities {
     
     public void deleteContacto(int position) {
         for(int i = position - 1; i < contactos.size(); i++) {
-            contactos.get(i).decreasePosition();            
+            contactos.get(i).decreasePosition();
+            
         }
         nextPosition--;
     }

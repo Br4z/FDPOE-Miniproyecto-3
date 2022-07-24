@@ -15,6 +15,7 @@
 
 package vista;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -40,11 +41,15 @@ public class VentanaInicio extends JFrame {
     private JButton btnAdd               = new JButton("Agregar");;    
     private JButton btnUpdate            = new JButton("Actualizar");;
     private JButton btnDelete            = new JButton("Eliminar");;
+    private JButton btnImport            = new JButton("Importar");
+    private JTextField txtSearch         = new JTextField();
+    private JLabel lblContacts           = new JLabel("Contactos");
+    
             
     public VentanaInicio() {
         initializeComponents();
         listContactos();
-        setSize(600, 550);
+        setSize(600, 480);
         setTitle("Directorio telefonico - Inicio");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -60,13 +65,30 @@ public class VentanaInicio extends JFrame {
         dataTable.setModel(tableModel);
         
         jScrollPane = new JScrollPane(dataTable);
-        jScrollPane.setBounds(10, 50, 560, 300);
+        jScrollPane.setBounds(10, 50, 560, 330);
         
-        btnAdd.setBounds(100, 300, 300, 300);
+        btnAdd.setBounds(410, 400, 80, 30);
         add(jScrollPane);
         add(btnAdd);
-        
+        btnDelete.setBounds(491, 400, 80, 30);
+        add(btnDelete);
+        btnUpdate.setBounds(309 ,400, 100, 30);
+        add(btnUpdate);
+        btnSearch.setBounds(30, 400, 80, 30);
+        add(btnSearch);
+        txtSearch.setBounds(111, 400, 149, 32);
+        add(txtSearch);
+        lblContacts.setBounds(10, 0, 200, 60);
+        lblContacts.setFont(new Font( "Helvetica",Font.ITALIC,20 ));
+        add(lblContacts);
+        btnLoad.setBounds(390, 10, 90, 30);
+        add(btnLoad);
+        btnExport.setBounds(481, 10, 90, 30);
+        add(btnExport);
+        btnImport.setBounds(300, 10, 90, 30);
+        add(btnImport);
         btnAdd.addActionListener(new actionListener());
+        btnDelete.addActionListener(new actionListener());
     }
     
     private void listContactos() {
@@ -98,7 +120,20 @@ public class VentanaInicio extends JFrame {
             if(pressButton == btnAdd) {
                 dispose();
                 VentanaManipularContactos ventanaAgregar = new VentanaManipularContactos();
+            }else if (pressButton == btnDelete) {
+                
+            }else if (pressButton ==btnUpdate) {
+                
+            }else if (pressButton==btnSearch) {
+                
+            }else if (pressButton==btnImport) {
+                
+            }else if (pressButton==btnLoad) {
+                
+            }else if (pressButton==btnExport) {
+                
             }
+            
         }
         
     }

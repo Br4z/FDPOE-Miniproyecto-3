@@ -270,7 +270,7 @@ public class VentanaManipularContactos extends JFrame {
             txtPhones[i].setText(phoneNumber);
         }
         
-        for(int i = 0; i <)
+        //for(int i = 0; i <)
     }
     
     private class actionListener implements ActionListener {
@@ -370,7 +370,6 @@ public class VentanaManipularContactos extends JFrame {
                     if(mode == 0) { // Modo de editar
                         utilities.editContacto(position, contacto);
                         JOptionPane.showMessageDialog(null, "Contacto editado con exito");
-                        
                         dispose();
                         VentanaInicio ventanaInicio = new VentanaInicio();
                     } else { // Modo agregar
