@@ -1,15 +1,16 @@
 /*
+
                  *´¨) 
                 ¸.•´ ¸.•´¸.•*´¨) ¸.•*¨) 
-                (¸.•´ (¸.•` ¤ Brandon Calderón Prieto  
-       .---.         
-      /     \   calderon.brandon@correounivalle.edu.co     
-      \.@-@./               
-      /`\_/`\               202125974
-     //  _  \\        
-    | \     )|_        Ingeniería de sistemas
-   /`\_`>  <_/ \
-   \__/'---'\__/
+                (¸.•´ (¸.•` ¤ 
+       .---.     calderon.brandon@correounivalle.edu.co
+      /     \                 202125974
+      \.@-@./     jose.bucheli@correounivalle.edu.co          
+      /`\_/`\                 202125340
+     //  _  \\         Ingeniería de sistemas          
+    | \     )|_               Profesor
+   /`\_`>  <_/ \      Luis Yovany Romo Portilla         
+   \__/'---'\__/     
  */
 
 package logica;
@@ -21,18 +22,18 @@ package logica;
  */
 
 public class Direccion {
-    private String direction;
+    private String address;
     private String place;
     
-    public Direccion(String direction, String place) {
-        this.direction = direction;
+    public Direccion(String address, String place) {
+        this.address = address;
         this.place = place; // Las opciones del lugar las proponemos nostros
     }
     
     public String[] getDireccion() {
         String[] information = new String[2]; 
         
-        information[0] = direction;
+        information[0] = address;
         information[1] = place;
         
         return information;

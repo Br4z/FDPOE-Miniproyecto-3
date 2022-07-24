@@ -1,15 +1,16 @@
 /*
+
                  *´¨) 
                 ¸.•´ ¸.•´¸.•*´¨) ¸.•*¨) 
-                (¸.•´ (¸.•` ¤ Brandon Calderón Prieto  
-       .---.         
-      /     \   calderon.brandon@correounivalle.edu.co     
-      \.@-@./               
-      /`\_/`\               202125974
-     //  _  \\        
-    | \     )|_        Ingeniería de sistemas
-   /`\_`>  <_/ \
-   \__/'---'\__/
+                (¸.•´ (¸.•` ¤ 
+       .---.     calderon.brandon@correounivalle.edu.co
+      /     \                 202125974
+      \.@-@./     jose.bucheli@correounivalle.edu.co          
+      /`\_/`\                 202125340
+     //  _  \\         Ingeniería de sistemas          
+    | \     )|_               Profesor
+   /`\_`>  <_/ \      Luis Yovany Romo Portilla         
+   \__/'---'\__/     
  */
 
 package logica;
@@ -32,13 +33,13 @@ public class Contacto {
     private ArrayList<String> addresses;
     private ArrayList<Telefono> telephones;
 
-    public Contacto(String[] ID, String role, String name, String lastName, String birth, ArrayList<String> directions, ArrayList<Telefono> telephones) {
+    public Contacto(String[] ID, String role, String name, String lastName, String birth, ArrayList<String> addresses, ArrayList<Telefono> telephones) {
         this.ID = ID;
         this.role = role;
         this.name = name;
         this.lastName = lastName;
         this.birth = birth;
-        this.addresses = directions;
+        this.addresses = addresses;
         this.telephones = telephones;
     }
     
@@ -77,10 +78,8 @@ public class Contacto {
     public void setPosition(int position) {
         this.position = position;
     }
+    
     public void decreasePosition() {
         position--;
-    }
-    
-
-    
+    }      
 }

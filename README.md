@@ -7,15 +7,21 @@
 ## Integrantes del grupo:
 
 - Brandon Calderón Prieto <calderon.brandon@correounivalle.edu.co> <2125974>
--  <> <>
+- José Luis Hincapié Bucheli <jose.bucheli@correounivalle.edu.co> <2125340>
 ---
 
 El enunciado del proyecto se encuentra en el [PDF](src/Minproyecto%20-%203.pdf).
 
 ## Diagrama de clases
 
-![Diagrama de clases](src/Diagrama%20clases.png)
+![Diagrama de clases](src/imagenes/Diagrama%20clases.png)
 
 # Mockups
 
-![Mockups](src/Mockups.jpg)
+## Ventana inicio
+
+![inicio](src/imagenes/mokups/inicio.png)
+
+## Ventana agregar/editar contactos
+
+![agregar/editar](src/imagenes/mokups/Gestionar%20contactos.png)
