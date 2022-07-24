@@ -1,6 +1,6 @@
 ---
 
-<img align = "left" alt = "Logo" src = "src/imagenes/icon.png" height = "128"><br>
+<img align = "left" alt = "Logo" src = "src/imagenes/Icon.png" height = "128"><br>
 
 # FDPOE-Miniproyecto-3
 
@@ -20,8 +20,12 @@ El enunciado del proyecto se encuentra en el [PDF](src/Minproyecto%20-%203.pdf).
 
 ## Ventana inicio
 
-![inicio](src/imagenes/mokups/inicio.png)
+![inicio](src/imagenes/mokups/Inicio.png)
 
 ## Ventana agregar/editar contactos
 
 ![agregar/editar](src/imagenes/mokups/Gestionar%20contactos.png)
+
+## Evidencia
+
+https://user-images.githubusercontent.com/67658575/180634497-9ba98f50-38ec-4589-a9ac-ba529070dbf0.mp4
